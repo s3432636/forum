@@ -1,0 +1,52 @@
+  <div class="row">
+    <div class="col-md-12 user-details">
+      <div class="col-md-12">
+          <%= image_tag @user.avatar.url(:thumb) if @user.avatar? %>
+          <div class="col-md-12 col-sm-12 uname">
+            <%= @user.username %>
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <p> User Joined:  <%= @user.created_at.to_formatted_s(:long) %></p>
+            <p><%= @user.city %></p>
+        </div>
+    </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="col-md-5 user-articles">
+        <ul> <div class="sub-title"> Recent Posts: </div>
+          <li>
+          <% @user.articles.each do |article| %>
+              <%= article.text %>
+              <div class="article-time"><%= article.created_at.to_formatted_s(:long) %></div>
+              <hr>
+          <% end %>
+          </li>
+        </ul>
+            <%# <%= link_to 'View article', article_path(article.id) %>
+            <%# <%= link_to 'Delete Article', article_path(article.id),
+          method: :delete,
+          data: { confirm: 'Are you sure?' } %>
+
+      </div>
+      <div class="col-md-5 user-comments">
+        <ul> <div class="sub-title"> Recent Comments: </div>
+          <li>
+        <% @user.comments.each do |comment| %>
+            <strong><%= comment.created_at.to_formatted_s(:long) %> </strong> in 
+            <%= 
+              a= Article.find_by_id(comment.article_id)
+              a.title
+            %>
+            comment:
+            <div class="comment"> <%= comment.body %> </div>
+            <hr>
+        <% end %>
+          </li>
+        </ul>
+          <%# <%= link_to 'View article', article_path(a.id) %> 
+      </div>
+      </div>
+    </div>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Back', users_path %>

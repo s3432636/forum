@@ -1,0 +1,140 @@
+  <div class="main-page">
+
+      <div class="row">
+
+
+          <div class="left-section col-md-7">
+              <div class="row">
+
+                  <div class="buttons col-md-12">
+                      <div class="button-section col-md-2">
+                          <%= link_to "Recent Posts", "",  data: {'js-recent-posts' => true} %>
+                      </div>
+                      <div class="button-section col-md-2">
+                          <%= link_to "Selected Posts", "",  data: {'js-selected-posts' => true} %>
+                      </div>
+                      <% if current_user %>
+                      <div class="button-section col-md-2">
+                          <span class="top-buttons"><%= link_to "My Settings", edit_user_path(current_user) %></span>
+                      </div>
+
+                      <input class="nav-search col-md-3" type="search" placeholder="Search" aria-label="Search">
+                      <a class="new-post-button col-md-2" href="articles/new">New Post</a>
+                      <% else %>
+                      <input class="nav-search col-md-3 col-md-offset-1" type="search" placeholder="Search"
+                          aria-label="Search">
+                      <a class="new-post-button col-md-2 col-md-offset-1" href="/login">New Post</a>
+
+                      <% end %>
+                  </div>
+
+                  <div class="article-container col-md-12">
+                      <div id="SelectedPosts">
+                          <% @articles.each do |article| %>
+                            <% if article.topic != '-' %>
+                                <% puts article.topic %>
+                                <div class="<%= article.topic %>">
+                                    <div class="article-content">
+                                        <div class="imageholder">
+                                            <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                                                alt="Flowers in Chania">
+                                        </div>
+                                        <article>
+                                            <p class="article-title"><%= link_to article.title, article_path(article) %></p>
+                                            <span class="subtext"><%= link_to article.user, user_path(article.user_id) %></span>
+                                            <span class="subtext"><%= article.created_at.to_formatted_s(:long) %></span>
+                                            <span class="subtext"><%= article.topic %></span>
+                                            <span class="subtext"><%= link_to 'View Article', article_path(article) %></span>
+                                            <span class="subtext">Views: <%= article.viewcount %></span>
+                                            <span class="subtext">Comments: <%= article.commentcount %></span>
+                                            <li><%= article.title %>
+                                                <%= link_to "Hide", "hide", data: {'js-hide-link' => true} %></li>
+                                        </article>
+                                    </div>
+                                </div>
+                            <% end %>
+                          <% end %>
+                      </div>
+
+                      <div id="RecentPosts">
+                          <% @articles.each do |article| %>
+                            <% if article.created_at > 1.month.ago %>
+                                <% if article.topic == '-' 
+                                    article.topic = 'News' 
+                                end %>
+                                <% puts article.topic %>
+                                <div class="article-content"
+                                >
+                                    <div class="imageholder">
+                                        <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                                            alt="Flowers in Chania">
+                                    </div>
+                                    <article>
+                                        <p class="article-title"><%= link_to article.title, article_path(article) %></p>
+                                        <span class="subtext"><%= link_to article.user, user_path(article.user_id) %></span>
+                                        <span class="subtext"><%= article.created_at.to_formatted_s(:long) %></span>
+                                        <span class="subtext"><%= article.topic %></span>
+                                        <span class="subtext"><%= link_to 'View Article', article_path(article) %></span>
+                                        <span class="subtext">Views: <%= article.viewcount %></span>
+                                        <span class="subtext">Comments: <%= article.commentcount %></span>
+                                    </article>
+                                </div>
+                            <% end %>
+                          <% end %>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="col-md-4">
+              <div class="row right-section">
+
+                  <div class="recent-members col-md-12">
+                      <h2 class="small-header">Recent Members</h2>
+                      <% @users.each do |user| %>
+                      <div class="member-content col-md-3">
+                          <div class="imageholder">
+                              <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                                  alt="Flowers in Chania">
+                              <figcaption class="member-uname"><%= user.username %></figcaption>
+                          </div>
+                      </div>
+
+
+                      <% end %>
+                  </div>
+
+                  <div class="topics col-md-12">
+                      <h2 class="small-header">Topics</h2>
+                      <% @topics.each do |topic| %>
+                        <% if topic != '-' %>
+                        <button><%= link_to topic, "", id: topic, data: {'js-toggle-topic' => true, 'topic' => topic} %>
+                        </button>
+                        <% end %>
+                      <% end %>
+                  </div>
+
+                  <div class="post col-md-12">
+                      <h2 class="small-header">Post</h2>
+                      Most viewed posts
+                      <% @posts = Article.order('viewcount DESC').limit(5) %>
+                         <% @posts.each do |article| %>
+                         <li><%= link_to article.title, article_path(article)%> Views: <%= article.viewcount %></li>
+                         <% end %>
+
+                      
+                     
+                  </div>
+
+                  <div class="links col-md-12">
+                      <h2 class="small-header">Links</h2>
+                      <button class="button"> <a href="http://www.rubyonrails.org"> Ruby </a> </button>
+                      <button class="button"> <a href="http://www.rmit.edu.au"> RMIT </a> </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+  </div>

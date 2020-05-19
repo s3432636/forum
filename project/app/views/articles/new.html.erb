@@ -1,0 +1,34 @@
+<div class="article_form">
+
+<%= form_with(model: @article, local: true) do |form| %>
+
+<% if @article.errors.any? %>
+    <div id="error">
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="new-title">Post</div>
+  <div class="article-topic">
+    <%= form.label :Topic , :class => "col-sm-1 col-form-label" %>
+    <div class="col-sm-11"><%= form.select :topic, ['-','AI', 'V.R', 'RMIT', 'Machine Learning']%></div>
+  </div>
+
+  <div class="article-title">
+    <%= form.label :Title , :class => "col-sm-1 col-form-label" %>
+    <div class="col-sm-11"><%= form.text_field :title , :placeholder => 'Enter Post title here' %></div>
+  </div>
+ 
+  <div class="article-textarea">
+    <%= form.text_area :text %>
+  </div>
+
+    <div class="post-link"><%= form.submit %></div>
+    <button class="post-link cancel"><%= link_to 'Cancel', articles_path %></button>
+  </p>
+<% end %>
+</div>

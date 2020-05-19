@@ -1,0 +1,28 @@
+@import"bootstrap-sprockets";
+@import"bootstrap";
+
+.title{
+    padding: 5rem 0 5rem 0 !important;
+    text-align: center;
+}
+
+.login-form{
+    height: 50rem;
+    width: 50rem;
+    margin: auto;
+    background: white;
+}
+
+.login-form .field{
+    padding-bottom: 1rem;
+}
+
+.input-form{
+    height: 17rem;
+    width: 35rem;
+    margin: auto;
+}
+
+#remember_me{
+    margin-left: -54%;
+}

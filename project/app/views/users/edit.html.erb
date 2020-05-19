@@ -1,0 +1,208 @@
+
+<div class="row user-settings">
+<div class="settings-nav col-md-2">
+  <a rel="user-profile" class="side-nav">My Profile</a><br>
+  <a rel="user-post" class="side-nav">My Posts</a><br>
+  <a rel="user-comment" class="side-nav">My Comments</a><br>
+  <a rel="received-comment" class="side-nav">Comments to Me</a><br>
+  <a rel="user-edit" class="side-nav">Setting</a>
+</div>
+
+
+
+<div class="settings-section col-md-9">
+
+    <div id="user-profile">
+       <div class="row">
+            <div class="col-md-12 user-details">
+            <div class="col-md-12">
+                <img class="center" src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                    alt="Flowers in Chania">
+                <div class="col-md-12 col-sm-12 uname">
+                    <%= @user.username %>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <p> User Joined:  <%= @user.created_at.to_formatted_s(:long) %></p>
+                    <p><%= @user.city %></p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-12">
+            <div class="col-md-3 col-sm-3 user-articles">
+                <ul> <div class="sub-title"> Recent Posts: </div>
+                <li>
+                <% @user.articles.each do |article| %>
+                    <%= article.text %>
+                    <div class="article-time"><%= article.created_at.to_formatted_s(:long) %></div>
+                    <hr>
+                <% end %>
+                </li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-3 user-comments">
+                <ul> <div class="sub-title"> Recent Comments: </div>
+                <li>
+                <% @user.comments.each do |comment| %>
+                    <strong><%= comment.created_at.to_formatted_s(:long) %> </strong> in 
+                    <%= 
+                    a= Article.find_by_id(comment.article_id)
+                    a.title
+                    %>
+                    comment:
+                    <div class="comment"> <%= comment.body %> </div>
+                    <hr>
+                <% end %>
+                </li>
+                </ul>
+                <%# <%= link_to 'View article', article_path(a.id) %> 
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="user-post">
+    <div class="user-articles">
+        <ul> <div class="sub-title"> Recent Posts: </div>
+        <li>
+        <% @user.articles.each do |article| %>
+            <%= article.text %>
+            <div class="article-time"><%= article.created_at.to_formatted_s(:long) %></div>
+            <hr>
+        <% end %>
+        </li>
+        </ul>
+    </div>
+    </div>
+
+    <div id="user-comment">
+        <div class="user-comments">
+            <ul> <div class="sub-title"> Recent Comments: </div>
+            <li>
+            <% @user.comments.each do |comment| %>
+                <strong><%= comment.created_at.to_formatted_s(:long) %> </strong> in 
+                <%= 
+                a= Article.find_by_id(comment.article_id)
+                a.title
+                %>
+                comment:
+                <div class="comment"> <%= comment.body %> </div>
+                <hr>
+            <% end %>
+            </li>
+            </ul>
+            <%# <%= link_to 'View article', article_path(a.id) %> 
+        </div>
+    </div>
+
+
+    <div id="received-comment">
+    <p>Received comments</p>
+    <div class="user-comments">
+        <ul> <div class="sub-title"> Received Comments: </div>
+        <li>
+        <% @user.articles.each do |article| %>
+            <% article.comments.each do |comment| %>
+
+            <strong><%= comment.commenter %>  <%= comment.created_at.to_formatted_s(:long) %> </strong> in 
+            <%= 
+            a= Article.find_by_id(comment.article_id)
+            a.title
+            %>
+            comment:
+            <div class="comment"> <%= comment.body %> </div>
+            <hr>
+            <% end  %>        
+            <% end %>
+        </li>
+        </ul>
+        <%# <%= link_to 'View article', article_path(a.id) %> 
+    </div>
+    </div>
+
+
+    <div id="user-edit" class="user-data">
+        <div class="update-details">
+            <div class="row top-nav">
+                <a rel="user-info" class="col-md-2">Personal Info</a>
+                <a rel="user-avatar" class="col-md-2">Avatar</a>
+                <a rel="user-password" class="col-md-2">Password</a>
+                <a rel="user-verification" class="col-md-2">Verification</a>
+            </div>
+        <hr>
+        </div>
+
+        <div class="update-user">
+            <div id="user-info">
+                <%= form_with(model: @user, local: true) do |form| %>
+                    <div class="form-group row">
+                    <%= form.label :username, class:"col-sm-3 col-form-label" %>
+                    <div class="col-sm-5"><%= form.text_field :username,class:"form-control", placeholder: 'enter user name' %></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <%= form.label :email, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.text_field :email,class:"form-control", placeholder: 'enter email' %></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <%= form.label :mobile, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.text_field :mobile,class:"form-control", placeholder: 'mobile number' %></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <%= form.label :city, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.text_field :city,class:"form-control", placeholder: 'enter city' %></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <%= form.label :intro, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.text_area :intro, placeholder: "Leave your personal bio here!", :size =>"45x8", :style => "font-size:small;" %></div>
+                    </div>
+
+                    <div class="actions">
+                    <%= form.submit %>
+                    </div>
+                 <% end %>
+            </div>
+            <div id="user-avatar"> 
+            <%= form_for(@user, html: { multiport: true}) do |form| %>
+                
+                <%= form.file_field :avatar %>
+
+                <div class="actions">
+                <%= form.submit "Save gravatar" %>
+            </div>
+            <% end %>
+            </div>
+
+            <div id="user-password">
+                <%= form_with(model: @user, local: true) do |form| %>
+
+                    <div class="form-group row">
+                        <%= form.label :password, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.password_field :password,class:"form-control", placeholder: 'Please confirm new password' %></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <%= form.label :password_confirmation, class:"col-sm-3 col-form-label" %>
+                        <div class="col-sm-5"><%= form.password_field :password_confirmation,class:"form-control", placeholder: 'Please confirm new password' %></div>
+                    </div>
+                
+                <div class="actions">
+                <%= form.submit %>
+            </div>
+            
+            <%end%>
+            </div>
+
+            <div id="user-verification"> User Verification </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div><%= link_to 'Show', @user %> </div>
+<div><%= link_to 'Back', users_path %></div>

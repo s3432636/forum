@@ -1,0 +1,119 @@
+<%# 
+ 
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%# <%= link_to 'Back', articles_path %>
+
+<%# <p>
+  <%= if current_user && @article.user_id == current_user.id
+  link_to 'Delete Article', article_path(@article.id),
+  method: :delete,
+  data: { confirm: 'Are you sure?' }
+  end %>
+<%# </p>
+</div>  %>
+
+
+<div class="article-page">
+
+    <div class="row">
+
+    
+    <div class="left-section col-md-7">
+    <div class="row">
+
+    <div class="articles-page">
+      <h3><strong><%= @article.title %></strong></h3>
+      <div class="view-details"> 
+        <div class="topic"><%= @article.topic %></div>
+        <div class="views">
+        Comment: <%= @article.commentcount %>
+        View:<%=  @article.viewcount %>
+        <% @article.viewcount = @article.viewcount + 1  
+        @article.save %>
+        </div>
+      </div>
+
+        <div class="article-user">
+          <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                        alt="Flowers in Chania">
+        <strong><%= @article.user %></strong>
+        </div>
+
+        <div class="article-text">
+          <%= @article.text %>
+        </div>
+
+        <% if current_user %>
+          <h4>Comments</h4>
+          <hr>
+          <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+            <p>
+              <%= form.text_area :body, placeholder: "Please input your comments", :size =>"45x2", :style => "font-size:small;" %>
+            </p>
+            <p>
+              <%= form.submit %>
+            </p>
+           <% end %>
+          <% else %>
+          <h2>Sign in to add a comment</h2>
+        <% end %>
+
+        <div class="comment-section">
+         <div class="comments-count"><%= @article.commentcount %> Comments </div>
+         <br>
+          <% @article.comments.each do |comment| %>
+            <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                alt="Flowers in Chania">
+              <div class=" comment-user"><%= comment.commenter %></div>
+              <%# <div class="comment-date"> <%= comment.created_at.to_formatted_s(:long) </div>  %>
+              <div class="comment-content"><%= comment.body %></div>
+          <% end %>
+      </div>
+      </div>
+    </div>
+    </div>
+      
+      
+    <div class="col-md-4">
+    <div class="row right-section">
+
+    <div class="recent-members col-md-12">
+            <h2 class="small-header">Recent Members</h2>
+            <% @users.each do |user| %>
+            <div class="member-content col-md-3">
+                <div class="imageholder">
+                    <img src="https://cdn3.f-cdn.com/contestentries/1376995/30494909/5b566bc71d308_thumb900.jpg"
+                        alt="Flowers in Chania">
+                        <figcaption class="member-uname"><%= user.username %></figcaption>
+                </div>
+            </div>
+
+
+            <% end %>
+        </div>
+
+        <div class="topics col-md-12">
+            <h2 class="small-header">Topics</h2>
+            <% @topics.each do |topic| %>  
+                <button class="button">
+                <%= topic %>
+                </button>          
+            <% end %>
+        </div>
+
+        <div class="post col-md-12">
+            <h2 class="small-header">Post</h2>
+            Most viewed posts
+        </div>
+
+        <div class="links col-md-12">
+            <h2 class="small-header">Links</h2>
+            <button class="button"> <a href="http://www.rubyonrails.org"> Ruby </a> </button>
+            <button class="button"> <a href="http://www.rmit.edu.au"> RMIT </a> </button>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+</div>
