@@ -59,6 +59,15 @@ h2 {
   color: #777;
 }
 
+h3 {
+  font-size: 1em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: white;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -91,7 +100,11 @@ button:hover{
 }
 
 .navbar-inverse{
-  background-color: #505050 !important;
+  background-color: #126846 !important;
+}
+
+.playerly-heading{
+  color:white;
 }
 
 .login-user{

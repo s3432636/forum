@@ -2,13 +2,15 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="navbar-header col-md-2 col-sm-2">
-        <h1 class="beta">News+</h1>
+        <h3 class="playerly-heading">Playerly-chat</h3>
       </div>
       <nav class="navbar-collapse col-md-7 col-sm-7">
         <ul class="nav navbar-nav navbar-centered">
           <li><%= link_to "Home", articles_path, class:"nav-list" %></li>
+          <li> <a href="https://master.d2emlwyc1svml4.amplifyapp.com/"> Back to Playerly </a> </button></li>
             <li class="dropdown">
               <a href="#" class=" nav-list dropdown-toggle" data-toggle="dropdown"> News <b class="caret"></b></a>
+              
               <!-- <ul class="dropdown-menu" role="menu"> -->
                 <% if current_user %>
                   <li class="login-user"><%= current_user.username%></li>
@@ -23,6 +25,7 @@
             alt="Flowers in Chania" href="">
           <div class="dropdown-content">
           <% if current_user %>
+            <li><%= link_to "Sign out", logout_path, method: "delete" %></li>
             <li><%= link_to "Sign out", logout_path, method: "delete" %></li>
           <% else %>
             <li><%= link_to "Sign Up", signup_path %></li>
