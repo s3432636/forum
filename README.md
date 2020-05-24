@@ -41,3 +41,6 @@ If the test suite passes, you'll be ready to run Playerly in a local server:
 ```
 $ rails server
 ```
+
+AMAZON RDS DETAILS
+  host: "rails-forum.crfvadrqcnwv.us-east-1.rds.amazonaws.com"
